@@ -44,7 +44,7 @@ class CategoryIndexer extends AbstractIndexer
         UrlPersistInterface $urlPersist,
         StoreManagerInterface $storeManager
     ) {
-        $this->_categoryCollection = $categoryCollection;
+        $this->_categoryHelper = $categoryHelper;
         $this->_urlRewriteGenerator = $categoryUrlRewriteGenerator;
 
         parent::__construct(
@@ -61,7 +61,7 @@ class CategoryIndexer extends AbstractIndexer
      */
     protected function getEntityCollection($storeId)
     {
-        return $this->categoryHelper->getStoreCategories(false, true, true);
+        return $this->_categoryHelper->getStoreCategories(false, true, true);
     }
 
     /**
