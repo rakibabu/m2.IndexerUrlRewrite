@@ -6,17 +6,17 @@
     "authors": [{
         "name" : "Karliuka Vitalii",
         "email": "karliuka.vitalii@gmail.com"
-    }],	
+    }],
 	"license": [
 		"OSL-3.0"
 	],
 	"require": {
-		"magento/module-catalog-url-rewrite": "100.0.*|100.1.*|100.2.*",
-		"magento/module-cms-url-rewrite": "100.0.*|100.1.*|100.2.*"
-	},	
+		"magento/module-catalog-url-rewrite": "100.0.*|100.1.*|100.2.*|100.3.*",
+		"magento/module-cms-url-rewrite": "100.0.*|100.1.*|100.2.*|100.3.*"
+	},
 	"autoload": {
-		"files": [ 
-			"registration.php" 
+		"files": [
+			"registration.php"
 		],
 		"psr-4": {
 			"Faonni\\IndexerUrlRewrite\\": ""
