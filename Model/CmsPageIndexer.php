@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright © 2011-2018 Karliuka Vitalii(karliuka.vitalii@gmail.com)
- * 
+ *
  * See COPYING.txt for license details.
  */
 namespace Faonni\IndexerUrlRewrite\Model;
@@ -18,29 +18,29 @@ class CmsPageIndexer extends AbstractIndexer
 {
     /**
      * CmsPage Collection
-     * 
+     *
      * @var \Magento\Cms\Model\ResourceModel\Page\Collection
      */
     protected $_cmsPageCollection;
-    
+
     /**
      * UrlRewrite Generator
-     * 
+     *
      * @var \Magento\CmsUrlRewrite\Model\CmsPageUrlRewriteGenerator
      */
     protected $_urlRewriteGenerator;
 
     /**
      * Initialize Indexer
-     * 
+     *
      * @param CmsPageCollection $cmsPageCollection
      * @param CmsPageUrlRewriteGenerator $cmsPageUrlRewriteGenerator
      * @param UrlPersistInterface $urlPersist
-     * @param StoreManagerInterface $storeManager     
+     * @param StoreManagerInterface $storeManager
      */
     public function __construct(
         CmsPageCollection $cmsPageCollection,
-        CmsPageUrlRewriteGenerator $cmsPageUrlRewriteGenerator,        
+        CmsPageUrlRewriteGenerator $cmsPageUrlRewriteGenerator,
         UrlPersistInterface $urlPersist,
         StoreManagerInterface $storeManager
     ) {
@@ -48,43 +48,43 @@ class CmsPageIndexer extends AbstractIndexer
         $this->_urlRewriteGenerator = $cmsPageUrlRewriteGenerator;
 
         parent::__construct(
-			$urlPersist, 
-			$storeManager
-		);
+            $urlPersist,
+            $storeManager
+        );
     }
-    	
+
     /**
      * Retrieve entity collection
      *
      * @param integer $storeId
      * @return object
      */
-	protected function getEntityCollection($storeId)
-	{
-		$this->_cmsPageCollection
-			->addStoreFilter($storeId)
-			->addFieldToSelect(['identifier']);
-			
-		return $this->_cmsPageCollection;
-	}
-    
+    protected function getEntityCollection($storeId, $rootCategoryId)
+    {
+        $this->_cmsPageCollection
+            ->addStoreFilter($storeId)
+            ->addFieldToSelect(['identifier']);
+
+        return $this->_cmsPageCollection;
+    }
+
     /**
      * Retrieve entity type
      *
      * @return string
      */
-	protected function getEntityType()
-	{
-		return CmsPageUrlRewriteGenerator::ENTITY_TYPE;	
-	}
-    
+    protected function getEntityType()
+    {
+        return CmsPageUrlRewriteGenerator::ENTITY_TYPE;
+    }
+
     /**
      * Retrieve entity rewrite generator
      *
      * @return object
      */
-	protected function getRewriteGenerator()
-	{
-		return $this->_urlRewriteGenerator;
-	}
+    protected function getRewriteGenerator()
+    {
+        return $this->_urlRewriteGenerator;
+    }
 }

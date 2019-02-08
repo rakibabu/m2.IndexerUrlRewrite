@@ -6,7 +6,7 @@
  */
 namespace Faonni\IndexerUrlRewrite\Model;
 
-use Magento\Catalog\Helper\Category as CategoryHelper;
+use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Magento\CatalogUrlRewrite\Model\CategoryUrlRewriteGenerator;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\UrlRewrite\Model\UrlPersistInterface;
@@ -17,11 +17,11 @@ use Magento\UrlRewrite\Model\UrlPersistInterface;
 class CategoryIndexer extends AbstractIndexer
 {
     /**
-     * Category Helper
+     * Category Collection
      *
-     * @var \Magento\Catalog\Helper\Category
+     * @var \Magento\Catalog\Model\ResourceModel\Category\Collection
      */
-    protected $_categoryHelper;
+    protected $_categoryCollection;
 
     /**
      * UrlRewrite Generator
@@ -29,7 +29,6 @@ class CategoryIndexer extends AbstractIndexer
      * @var \Magento\CatalogUrlRewrite\Model\CategoryUrlRewriteGenerator
      */
     protected $_urlRewriteGenerator;
-
     /**
      * Initialize Indexer
      *
@@ -39,7 +38,7 @@ class CategoryIndexer extends AbstractIndexer
      * @param StoreManagerInterface $storeManager
      */
     public function __construct(
-        CategoryHelper $categoryHelper,
+        CategoryCollection $categoryCollection,
         CategoryUrlRewriteGenerator $categoryUrlRewriteGenerator,
         UrlPersistInterface $urlPersist,
         StoreManagerInterface $storeManager
@@ -59,9 +58,16 @@ class CategoryIndexer extends AbstractIndexer
      * @param integer $storeId
      * @return object
      */
-    protected function getEntityCollection($storeId)
+    protected function getEntityCollection($storeId, $rootCategoryId)
     {
-        return $this->_categoryHelper->getStoreCategories(false, true, true);
+        $this->_categoryCollection->clear();
+
+        $this->_categoryCollection
+            ->addAttributeToSelect(['url_path', 'url_key', '*'])
+            ->addAttributeToFilter('level', array('gt' => 0))
+            ->addFieldToFilter('path', array('like' => "%/{$rootCategoryId}/%"));
+
+        return $this->_categoryCollection;
     }
 
     /**
