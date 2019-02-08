@@ -43,7 +43,7 @@ class CategoryIndexer extends AbstractIndexer
         UrlPersistInterface $urlPersist,
         StoreManagerInterface $storeManager
     ) {
-        $this->_categoryHelper = $categoryHelper;
+        $this->_categoryCollection = $categoryCollection;
         $this->_urlRewriteGenerator = $categoryUrlRewriteGenerator;
 
         parent::__construct(
