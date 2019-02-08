@@ -53,7 +53,7 @@ abstract class AbstractIndexer implements IndexerActionInterface, MviewActionInt
      * @param integer $storeId
      * @return object
      */
-    abstract protected function getEntityCollection($storeId);
+    abstract protected function getEntityCollection($storeId, $rootCategoryId);
 
     /**
      * Retrieve entity type
